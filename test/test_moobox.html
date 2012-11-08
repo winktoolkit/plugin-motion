@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		
+		<style>
+			html, body
+			{
+				background: #a3c762;
+			}
+			
+			audio
+			{
+				display: none;
+				
+				height: 0;
+				width: 0;
+			}
+			
+			#container
+			{
+				position: relative;
+				
+				background: url('./img/cow.jpg') no-repeat center center;
+				
+				height: 420px;
+				width: 320px;
+				
+				margin: auto;
+			}
+			
+			#splash, #explanations
+			{
+				color: #fff;
+				
+				height: 420px;
+				width: 320px;
+				
+				text-align: center;
+			}
+			
+			#splash div
+			{
+				text-align: center; 
+				height: 40px;
+				padding-top: 350px;
+			}
+			
+			#explanations
+			{
+				display: none;
+			}
+			
+			#explanations div
+			{
+				position: absolute;
+				
+				bottom: 0;
+				
+				background: #687e3f;
+				
+				height: 40px;
+				line-height: 40px;
+				
+				width: 320px;
+			}
+			
+			#bubble
+			{
+				position: absolute;
+				
+				opacity: 0;
+				
+				top: 90px;
+				left: 180px;
+			}
+			
+			.w_button
+			{
+				color: #fff;
+				background: #687e3f;
+				border: 3px solid #fff;
+				
+				height: 44px;
+				width: 150px;
+			}
+		</style>
+		
+		<!-- CORE -->
+		<!-- Can be replaced by wink.min.js -->
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/_amd/js/amd.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/_base/_base/js/base.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/_base/_dom/js/dom.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/_base/error/js/error.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/_base/json/js/json.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/_base/ua/js/ua.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/_base/topics/js/topics.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/_base/_feat/js/feat.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/_base/_feat/js/feat_json.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/_base/_feat/js/feat_css.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/_base/_feat/js/feat_event.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/_base/_feat/js/feat_dom.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/fx/_xy/js/2dfx.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/math/_basics/js/basics.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/net/xhr/js/xhr.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/ui/xy/layer/js/layer.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/ux/event/js/event.js"></script>
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/ux/touch/js/touch.js"></script>
+		<!-- END CORE -->
+		
+		<script type="text/javascript" src="http://www.winktoolkit.org/webapps/wink/fx/_animation/js/animation.js"></script>
+		<script type="text/javascript" src="../js/motion.js"></script>
+		
+		<script>
+			var motion;
+			
+			init = function()
+			{
+				motion = new wink.plugins.Motion();
+				motion.addListener('flip', { method: 'moo' });
+				
+				if ( window.innerHeight > 420 )
+				{
+					wink.byId('container').style.top = ((window.innerHeight-420)/2) + 'px';
+				}
+				
+				scrollTo(0, 0, 0);
+			}
+			
+			moo = function()
+			{
+				displayBubble();
+				play();
+			}
+			
+			play = function()
+			{
+				wink.byId('audioPlayer').play();
+			};
+			
+			removeSplashScreen = function()
+			{
+				play();
+				
+				wink.byId('splash').style.display = 'none';
+				wink.byId('explanations').style.display = 'block';
+			}
+			
+			hideBubble = function()
+			{
+				wink.fx.fadeOut(wink.byId('bubble'), 
+				{
+					duration: 1200,
+					delay: 0
+				});
+			}
+			
+			displayBubble = function()
+			{
+				wink.fx.fadeIn(wink.byId('bubble'), 
+				{
+					duration: 1200,
+					delay: 0,
+					onEnd: {method: 'hideBubble'}
+				});
+			}
+		</script>
+	</head>
+<body onload="init()">
+	<div id="container">
+		<div id="splash">
+			<div>
+				<input type="button" onclick="removeSplashScreen()" value="enter" class="w_button" />
+			</div>
+		</div>
+		<div id="explanations">
+			<img id="bubble" src="./img/bubble.png" />
+			<div>
+				Flip your phone to hear the Mooooooo...
+			</div>
+		</div>
+	</div>
+	
+	<audio id="audioPlayer" src="./files/moo.mp3"></audio>
+</body>
+</html>
