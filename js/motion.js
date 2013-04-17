@@ -34,7 +34,7 @@ define(['../../../_amd/core'], function(wink)
 	 * motion.addListener('flip', { method: 'test', arguments: 'flip' });
 	 * motion.addListener('fall', { method: 'test', arguments: 'fall' });
 	 * 
-	 * @compatibility Iphone OS4, Iphone OS5, Android 3.0, Android 3.1, Android 4, BlackBerry PlayBook 2.0
+	 * @compatibility Iphone OS4, Iphone OS5, Android 3.0, Android 3.1, Android 4, BlackBerry PlayBook 2.0, BB10
 	 * 
 	 * @winkVersion 1.4
 	 */
